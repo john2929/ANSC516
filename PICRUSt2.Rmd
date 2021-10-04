@@ -1,0 +1,159 @@
+---
+title: "PICRUSt2"
+author: "ANSC595"
+date: "4/15/2021"
+output: html_document
+---
+
+From: https://github.com/picrust/picrust2/wiki
+
+"PICRUSt2 (Phylogenetic Investigation of Communities by Reconstruction of Unobserved States) is a software for predicting functional abundances based only on marker gene sequences." 
+
+https://www.biorxiv.org/content/10.1101/672295v1
+
+See the preprint and the wiki for more information.
+
+"There are several limitations to keep in mind when analyzing PICRUSt2 output, which are mainly related to predictions being limited to the gene contents of existing reference genomes. The best way to assess how this limitations are affecting any interpretations in your dataset is to compare with functional profiles from metagenomes on a subset of samples." (See  wiki for additional details and specific examples of the limitations of PICRUSt2)
+
+This tutorial will focus on the installation and use of the qiime2 plugin for PICRUSt2 on the RCAC cluster.
+
+### Resources:
+
+**Picrust2 tutorial**
+
+https://github.com/picrust/picrust2/wiki/q2-picrust2-Tutorial
+
+**Installing python packages on the RCAC clusters**
+
+https://www.rcac.purdue.edu/training/python-packages/python-package-install.pdf
+
+It is recommended that you create an environment (like a module) in which to install the PICRUSt2 plugin because it is a python package and requires a very particular set of modules to be used (even not the most up-to-date version of python) in order to work.
+
+**Create environment with Qiime2 first**
+
+based on https://docs.qiime2.org/2021.2/install/native/) 
+Note: can not use 'rcac-conda-env create' here because it does not
+take '--file' argument. Using 'conda env' instead.
+  
+```{gray}   
+module load anaconda/2020.02-py37
+rcac-conda-env delete -n qiime2-2021.2
+wget https://data.qiime2.org/distro/core/qiime2-2021.2-py36-linux-conda.yml
+conda env create -n qiime2-2021.2 --file qiime2-2021.2-py36-linux-conda.yml
+rm qiime2-2021.2-py36-linux-conda.yml
+qiime tools import --help
+```
+
+## Create a modulefile for this environment for ease of activation
+The '--local-python' is crucial - tells the script that the environment is fully self-contained)
+   
+```{gray}   
+rcac-conda-env module -n qiime2-2021.2 --local-python
+```
+
+Load the module (instead of conda activate)
+   # Note: the 'py-3.7.6' part is a lie (inside the environment python version is 3.6.13), but that's we can live with that... consider it is a reminder of parental Anaconda)
+   
+```{gray}   
+python --version 		# reports 3.7.6
+module load use.own
+module load conda-env/qiime2-2021.2-py3.7.6
+python --version 		# now from inside reports 3.6.13
+qiime tools import --help
+```
+
+## And now install PICRUST plugin into the environment
+   # (Based on https://library.qiime2.org/plugins/q2-picrust2/13/)
+   
+```{gray}   
+conda install q2-picrust2=2021.2 -c conda-forge -c bioconda -c gavinmdouglas
+```
+### And now everything works:
+
+```{gray}
+qiime picrust2 full-pipeline --help
+```
+
+Of course you only need to install it once.  To use it later, the
+activation steps are just:
+```{gray}   
+module load use.own
+module load conda-env/qiime2-2021.2-py3.7.6
+```   
+
+## Step 3: Run the tutorial on this website
+
+https://github.com/picrust/picrust2/wiki/q2-picrust2-Tutorial 
+
+And that seemed to work fairly   well. There are three input files:
+
+```
+mammal_biom.qza
+mammal_seqs.qza
+mammal_metadata.tsv
+```
+
+These are named a little strangely to me. These are what I would call
+
+```
+table.qza
+rep-seqs.qza
+metadata.tsv
+```
+
+Follow their tutorial to see the process run.
+
+Also a good idea to read all the documentation to get the background information.
+
+```{gray}
+
+cd $RCAC_SCRATCH
+cd qiime
+mkdir picrust2
+cd picrust2
+mkdir moving-pictures
+cd moving-pictures
+cp /depot/microbiome/data/2021_ANSC595/john2185/qiime/moving_pictures_pipeline/table.qza .
+cp /depot/microbiome/data/2021_ANSC595/john2185/qiime/moving_pictures_pipeline/rep-seqs.qza .
+cp /depot/microbiome/data/2021_ANSC595/john2185/qiime/moving_pictures_pipeline/sample-metadata.tsv .
+
+qiime picrust2 full-pipeline \
+   --i-table table.qza \
+   --i-seq rep-seqs.qza \
+   --output-dir q2-picrust2_output \
+   --p-placement-tool sepp \
+   --p-threads 1 \
+   --p-hsp-method pic \
+   --p-max-nsti 2 \
+   --verbose
+```
+
+This is the output
+
+```
+Warning - 19 input sequences aligned poorly to reference sequences (--min_align option specified a minimum proportion of 0.8 aligning to reference sequences). These input sequences will not be placed and will be excluded from downstream steps.
+
+This is the set of poorly aligned input sequences to be excluded: ad492bcae03f566b36a19e31f04d659a, 1d7e45fd568a577b5a6a8b4a20743211, 08bd73939f7bfd85daf2eaee7e9c9bf8, eb8ef4756ed538fe480d979e740a04d8, 8dc69d65ac9e71a130bc6dbeb71d2f03, d46bfd723f625e317606ae28580eba3e, e9d3af4175420ffab49c29d1a6bb2030, 35bfc371d940cffdc527b7b4dc954456, 58c63b4710a70a640cb86afa4d851178, 5fb5ace22c46fefb30969da7bb0dcb74, 81026563293d6ed29eec4d7f73eab34d, 684b032107a3a32f6664dea4ef723a42, 514a4ebb290842347e3f7ac7cbba276e, 47c7eb4df73a5d553cd2f7a360ff5872, ca08eabd09756731f095632656d45b01, 99acae6a2b24652d92a1ee4cbf8faca5, 8be3d398e9e6b768ed1aa713f2981204, a95851baf426c85eae4419617db902a7, c89812744d8755bef87bedf499bd19cf
+
+
+
+
+
+3 of 751 ASVs were above the max NSTI cut-off of 2.0 and were removed from the downstream analyses.
+
+3 of 751 ASVs were above the max NSTI cut-off of 2.0 and were removed from the downstream analyses.
+
+
+Saved FeatureTable[Frequency] to: q2-picrust2_output/ko_metagenome.qza
+Saved FeatureTable[Frequency] to: q2-picrust2_output/ec_metagenome.qza
+Saved FeatureTable[Frequency] to: q2-picrust2_output/pathway_abundance.qza
+```
+
+From here you can use these as table.qza files. You can look at diversity analysis or DESeq2/LEFSe or similar analysis. For example:
+
+![](/Volumes/ag_ansc/Users/john2185/Classes/2021Spring/ANSC595/Lectures/QIIME2/images/picrust_pathway_deseq.png)
+
+
+Search for the description of the pathway numbers on the metacyc database online: `https://metacyc.org/pwy-search.shtml`
+
+![](/Volumes/ag_ansc/Users/john2185/Classes/2021Spring/ANSC595/Lectures/QIIME2/images/picrust_pathway_deseq_names.png)
