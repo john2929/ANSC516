@@ -1,3 +1,7 @@
+#Install qiime2R if you need to:
+install.packages("remotes")
+remotes::install_github("jbisanz/qiime2R")
+
 
 #Load the packages
 
