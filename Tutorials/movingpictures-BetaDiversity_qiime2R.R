@@ -2,6 +2,13 @@
 install.packages("remotes")
 remotes::install_github("jbisanz/qiime2R")
 
+#Install tidyverse if you need to:
+# Install from CRAN
+install.packages("tidyverse")
+
+# Or the development version from GitHub
+# install.packages("devtools")
+devtools::install_github("tidyverse/tidyverse")
 
 #Load the packages
 
@@ -30,8 +37,9 @@ library(tidyverse)
 # first on  your laptop cd to the directory where you want to save them.
 # Then use this code for our example dataset today:
 # mkdir core-metrics-results/
-# scp john2185@bell.rcac.purdue.edu:/depot/microbiome/data/2021_ANSC595/john2185/qiime/moving_pictures_pipeline/* .
-# scp john2185@bell.rcac.purdue.edu:/depot/microbiome/data/2021_ANSC595/john2185/qiime/moving_pictures_pipeline/core-metrics-results/* core-metrics-results/.
+# scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/*.qz* .
+$ scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/core-metrics-results/*.qz* core-metrics-results/
+$ scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/*.tsv .
 ##############################################
 
 
