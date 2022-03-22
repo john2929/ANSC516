@@ -38,8 +38,8 @@ library(tidyverse)
 # Then use this code for our example dataset today:
 # mkdir core-metrics-results/
 # scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/*.qz* .
-$ scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/core-metrics-results/*.qz* core-metrics-results/
-$ scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/*.tsv .
+# scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/core-metrics-results/*.qz* core-metrics-results/
+# scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/*.tsv .
 ##############################################
 
 
