@@ -72,6 +72,11 @@ library(ggpubr)
 # Load data
 
 meta<-read_q2metadata("sample-metadata.tsv")
+str(meta)
+colnames(meta)[3] <- "body.site"
+colnames(meta)[8] <- "reported.antibiotic.usage"
+colnames(meta)[9] <- "days.since.experiment.start"
+str(meta)
 
 evenness = read_qza("core-metrics-results/evenness_vector.qza")
 evenness<-evenness$data %>% rownames_to_column("SampleID") # this moves the sample names to a new column that matches the metadata and allows them to be merged
@@ -144,7 +149,7 @@ ggqqplot(meta$shannon, title = "Shannon")
 ggqqplot(meta$faith_pd, title = "Faith PD")
 ggqqplot(meta$pielou_e, title = "Evenness")
 ggqqplot(meta$observed_features, title = "Observed Features")
-```
+
 
 
 # To test for normalcy statistically, we can run the Shapiro-Wilk 
@@ -204,7 +209,7 @@ TukeyHSD(aov.evenness.body_site)
 # compared to palms.
 
 levels(meta$body.site)
-#Re-order the groups because the default is 1yr-2w-8w
+#Re-order the groups because the default is alphabetical order
 meta$body.site.ord = factor(meta$body.site, c("left palm", "right palm", "gut", "tongue"))
 levels(meta$body.site.ord)
 
@@ -213,7 +218,8 @@ boxplot(pielou_evenness ~ body.site.ord, data=meta, ylab="Peilou evenness")
 
 evenness <- ggplot(meta, aes(body.site.ord, pielou_evenness)) + 
   geom_boxplot(aes(color = body.site.ord)) + 
-  ylim(c(0.5,1)) +
+  #ylim(c(0.5,1)) +
+  theme_q2r() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 ggsave("output/evenness.png", evenness, height = 3, width = 3)
 
@@ -230,9 +236,10 @@ evenness_summary <- meta %>% # the names of the new data frame and the data fram
 # deviations or standard errors as the error bar. The following code 
 # uses the standard deviations.
 
-evenness_se <- ggplot(evenness_summary, aes(body.site.ord, mean_evenness, fill = body.site.ord)) + 
+evenness_se <- (evenness_summary, aes(body.site.ord, mean_evenness, fill = body.site.ord)) + 
   geom_col() + 
   geom_errorbar(aes(ymin = mean_evenness - se_evenness, ymax = mean_evenness + se_evenness), width=0.2) + 
+  theme_q2r() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
   theme(legend.title = element_blank()) +
   labs(y="Pielou's evenness  ± s.e.", x = "") 
@@ -264,6 +271,7 @@ boxplot(faith_pd ~ body.site.ord, data=meta, ylab="Faith phylogenetic diversity"
 faith_pd <- ggplot(meta, aes(body.site.ord, faith_pd)) + 
   geom_boxplot(aes(color = body.site.ord)) + 
   #ylim(c(0.5,1)) +
+  theme_q2r() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
   theme(legend.title = element_blank()) +
   labs(y="Faith Phylogenetic Diversity", x = "") 
