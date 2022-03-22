@@ -7,6 +7,15 @@
 #The first step is very important. You need to set your working 
 #directory. Just like in unix we have to `cd` to where our data is, the 
 #same thing is true for R.
+# To get these files you need to scp them from the cluster:
+#
+# first on  your laptop cd to the directory where you want to save them.
+# Then use this code for our example dataset today:
+# mkdir core-metrics-results/
+# scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/*.qz* .
+$ scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/core-metrics-results/*.qz* core-metrics-results/
+$ scp <user.name>@bell.rcac.purdue.edu:/depot/microbiome/data/ANSC595/class_materials/moving_pictures_pipeline/qiime_out/*.tsv .
+##############################################
 
 #So where `~/Desktop/ANSC595/moving-pictures` is in the code below, you 
 #need to enter the path to where you saved the tutorial or your data.
