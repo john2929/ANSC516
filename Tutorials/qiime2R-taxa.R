@@ -35,8 +35,11 @@ if(!dir.exists("output"))
 
 metadata<-read_q2metadata("sample-metadata.tsv")
 str(metadata)
-colnames(metadata)[3] = "bodysite"
-levels(metadata$bodysite)
+colnames(metadata)[3] = "body.site"
+levels(metadata$body.site)
+colnames(metadata)[8] <- "reported.antibiotic.usage"
+colnames(metadata)[9] <- "days.since.experiment.start"
+str(metadata)
 
 row.names(metadata) <- metadata[ ,1]
 #metadata <- metadata[,-1]
@@ -127,7 +130,7 @@ my_colors <- c(
 
 #If you want different taxonomic level, find and replace the taxonomic level listed here
 my_level <- c("Phylum", "Family", "Genus")
-my_column <- "bodysite"
+my_column <- "body.site"
 
 rm(taxa.summary)
 
@@ -224,7 +227,7 @@ physeq_deseq = phyloseq(OTU.physeq, tax.physeq, meta.physeq)
 #The following two lines actually do all the complicated DESeq2 work. The function phyloseq_to_deseq2 converts your phyloseq-format microbiome data into a DESeqDataSet with dispersions estimated, using the experimental design formula, also shown (the ~body.site term). The DESeq function does the rest of the testing, in this case with default testing framework, but you can actually use alternatives.
 
 
-diagdds = phyloseq_to_deseq2(physeq_deseq, ~ bodysite)
+diagdds = phyloseq_to_deseq2(physeq_deseq, ~ body.site)
 diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
 #the test type of "Wald" tests for significance of coefficients in a Negative Binomial GLM. This is generally a pretty good assumption for sequencing experiments. This was designed with RNA-seq in mind, but also pretty good for 16S sequencing.
 
@@ -240,12 +243,12 @@ diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
 #  3. the name of the denominator level for the fold change (simplest case)
 
 alpha = 0.05
-my_contrast = c("bodysite", "gut", "left palm") 
-#my_contrast = c("bodysite", "gut", "right palm") 
-#my_contrast = c("bodysite", "gut", "tongue") 
-#my_contrast = c("bodysite", "tongue", "left palm") 
-#my_contrast = c("bodysite", "tongue", "right palm") 
-#my_contrast = c("bodysite", "right palm", "left palm") 
+my_contrast = c("body.site", "gut", "left palm") 
+#my_contrast = c("body.site", "gut", "right palm") 
+#my_contrast = c("body.site", "gut", "tongue") 
+#my_contrast = c("body.site", "tongue", "left palm") 
+#my_contrast = c("body.site", "tongue", "right palm") 
+#my_contrast = c("body.site", "right palm", "left palm") 
 
 res = results(diagdds, contrast = my_contrast, cooksCutoff = FALSE)
 
