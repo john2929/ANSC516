@@ -236,7 +236,7 @@ evenness_summary <- meta %>% # the names of the new data frame and the data fram
 # deviations or standard errors as the error bar. The following code 
 # uses the standard deviations.
 
-evenness_se <- (evenness_summary, aes(body.site.ord, mean_evenness, fill = body.site.ord)) + 
+evenness_se <- ggplot(evenness_summary, aes(body.site.ord, mean_evenness, fill = body.site.ord)) + 
   geom_col() + 
   geom_errorbar(aes(ymin = mean_evenness - se_evenness, ymax = mean_evenness + se_evenness), width=0.2) + 
   theme_q2r() +
