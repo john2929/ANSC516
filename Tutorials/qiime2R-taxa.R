@@ -182,7 +182,7 @@ for(ml in my_level){
     ylab("Relative Abundance") +
     xlab(my_column) +
     ggtitle(paste0(ml, " (>", abund_filter * 100,"%) in at least 1 treatment group")) 
-  ggsave(paste0("output/", ml, "BarPlot_", my_column, ".png"), height = 5)
+  ggsave(paste0("output/", ml, "BarPlot_", my_column, ".png"), height = 5, width = 4)
 }
 
 #################################################################
@@ -289,4 +289,4 @@ DESeq_fig = ggplot(sigtab, aes(x=Genus, y = log2FoldChange, color=Phylum)) +
   #ylim(0,8) +
   theme(axis.text.x = element_text(angle = -90, hjust = 0, vjust=0.5))
 
-ggsave(paste0("output/DESeq2-", my_contrast[2], "-", my_contrast[3], ".png"), DESeq_fig, height = 2.8, width = 2.8)
+ggsave(paste0("output/DESeq2-", my_contrast[2], "-", my_contrast[3], ".png"), DESeq_fig, height = 3, width = 10)
