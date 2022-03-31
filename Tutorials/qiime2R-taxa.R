@@ -27,7 +27,7 @@ library(tidyverse)
 #taxonomy.qza
 ##############################################
 
-setwd('~/Desktop/ANSC595/moving-pictures/')
+setwd('~/Desktop/ANSC595/2022/moving_pictures/from_bell/')
 list.files()
 
 if(!dir.exists("output"))
@@ -37,6 +37,8 @@ metadata<-read_q2metadata("sample-metadata.tsv")
 str(metadata)
 colnames(metadata)[3] = "body.site"
 levels(metadata$body.site)
+metadata$body.site.ord = factor(metadata$body.site, c("left palm", "right palm", "gut", "tongue"))
+levels(metadata$body.site.ord)
 colnames(metadata)[8] <- "reported.antibiotic.usage"
 colnames(metadata)[9] <- "days.since.experiment.start"
 str(metadata)
@@ -95,7 +97,7 @@ for (i in 1:nrow(tax.clean)){
 physeq <- qza_to_phyloseq(
   features="core-metrics-results/rarefied_table.qza",
   tree="rooted-tree.qza",
-  "taxonomy.qza",
+  taxonomy = "taxonomy.qza",
   metadata = "sample-metadata.tsv"
 )
 
@@ -130,11 +132,11 @@ my_colors <- c(
 
 #If you want different taxonomic level, find and replace the taxonomic level listed here
 my_level <- c("Phylum", "Family", "Genus")
-my_column <- "body.site"
+my_column <- "body.site"  #this is the metadata column that we will use in the taxa barplot
 
 rm(taxa.summary)
 
-abund_filter <- 0.02
+abund_filter <- 0.05  # Our abundance threshold
 #ml ="Genus"
 
 for(ml in my_level){
@@ -150,21 +152,21 @@ for(ml in my_level){
   colnames(taxa.summary)[1] <- my_column
   colnames(taxa.summary)[2] <- ml
   
-  physeq.taxa.average <- taxa.summary %>% 
+  physeq.taxa.max <- taxa.summary %>% 
     group_by(get(ml)) %>%
     summarise(overall.max=max(Abundance.average))
   
-  physeq.taxa.average <- as.data.frame(physeq.taxa.average)
-  colnames(physeq.taxa.average)[1] <- ml
+  physeq.taxa.max <- as.data.frame(physeq.taxa.max)
+  colnames(physeq.taxa.max)[1] <- ml
   
   # merging the phyla means with the metadata #
-  physeq_meta <- merge(taxa.summary, physeq.taxa.average)
+  physeq_meta <- merge(taxa.summary, physeq.taxa.max)
   
-
+  
   physeq_meta_filtered <- filter(physeq_meta, overall.max>abund_filter)
   #str(physeq_meta_filtered)
-
-  #physeq_meta_filtered$body.site.ord = factor(physeq_meta_filtered$body.site, c("left palm", "right palm", "gut", "tongue"))
+  
+  physeq_meta_filtered$body.site.ord = factor(physeq_meta_filtered$body.site, c("left palm", "right palm", "gut", "tongue"))
   
   # Plot 
   ggplot(physeq_meta_filtered, aes(x = get(my_column), y = Abundance.average, fill = get(ml))) + 
@@ -181,7 +183,7 @@ for(ml in my_level){
     theme(legend.title = element_blank()) +
     ylab("Relative Abundance") +
     xlab(my_column) +
-    ggtitle(paste0(ml, " (>", abund_filter * 100,"%) in at least 1 treatment group")) 
+    ggtitle(paste0(ml, " (>", abund_filter * 100,"%) in at least 1 sample")) 
   ggsave(paste0("output/", ml, "BarPlot_", my_column, ".png"), height = 5, width = 4)
 }
 
@@ -211,8 +213,8 @@ OTU.clean2 <- physeq_otu_table + 1
 
 
 #Now make the phyloseq object:
-  
-  
+
+
 OTU.physeq = otu_table(as.matrix(OTU.clean2), taxa_are_rows=TRUE)
 tax.physeq = tax_table(as.matrix(tax.clean))
 meta.physeq = sample_data(metadata.filtered)
@@ -237,7 +239,7 @@ diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
 #The following results function call creates a table of the results of the tests. Very fast. The hard work was already stored with the rest of the DESeq2-related data in our latest version of the diagdds object (see above). I then order by the adjusted p-value, removing the entries with an NA value. The rest of this example is just formatting the results table with taxonomic information for nice(ish) display in the HTML output.
 
 #Contrast: this argument specifies what comparison to extract from the object to build a results table. There are exactly three elements:
-  
+
 #  1. the name of a factor in the design formula, 
 #  2. the name of the numerator level for the fold change, and 
 #  3. the name of the denominator level for the fold change (simplest case)
@@ -272,7 +274,7 @@ with(subset(res, padj<.01 & abs(log2FoldChange)>2), points(log2FoldChange, -log1
 
 theme_set(theme_bw())
 scale_fill_discrete <- function(palname = "Set1", ...) {
-scale_fill_brewer(palette = palname, ...)
+  scale_fill_brewer(palette = palname, ...)
 }
 # Phylum order
 #x = tapply(sigtab$log2FoldChange, sigtab$Phylum, function(x) max(x))
