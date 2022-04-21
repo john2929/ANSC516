@@ -1,0 +1,109 @@
+# This is a submission template for batch deposit of 'Metagenome or environmental; version 1.0' samples to the NCBI BioSample database (https://www.ncbi.nlm.nih.gov/biosample/).																				
+"# Fields with an asterisk (*) are mandatory. Your submission will fail if any mandatory fields are not completed. If information is unavailable for any mandatory field, please enter 'not collected', 'not applicable' or 'missing' as appropriate."																				
+# All other fields are optional. Leave optional fields empty if no information is available.																				
+"# You can add any number of custom fields to fully describe your BioSamples, simply include them in the table."																				
+"# CAUTION: Be aware that Excel may automatically apply formatting to your data. In particular, take care with dates, incrementing autofills and special characters like / or -. Doublecheck that your text file is accurate before uploading to BioSample."																				
+# TO MAKE A SUBMISSION:																				
+"#     1. Complete the template table (typically in Excel, or another spreadsheet application)"																				
+"#     2. Save the worksheet as a Text (Tab-delimited) file - use 'File, Save as, Save as type: Text (Tab-delimited)'"																				
+#     3. Upload the file on the 'Attributes' tab of the BioSample Submission Portal at https://submit.ncbi.nlm.nih.gov/subs/biosample/.																				
+"#     4. If you have any questions, please contact us at biosamplehelp@ncbi.nlm.nih.gov."																				
+*sample_name	sample_title	bioproject_accession	*organism	host	isolation_source	*collection_date	*geo_loc_name	*lat_lon	ref_biomaterial	rel_to_oxygen	samp_collect_device	samp_mat_process	samp_size	source_material_id	description	litter_moisture_treatment	corn-type	pen	block	bird
+Sample-00001			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	1	1	2
+Sample-00002			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	1	1	5
+Sample-00003			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	1	1	8
+Sample-00004			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	1	1	6
+Sample-00005			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	2	1	1
+Sample-00006			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	2	1	3
+Sample-00007			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	2	1	7
+Sample-00008			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	2	1	8
+Sample-00009			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	3	1	2
+Sample-00010			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	3	1	5
+Sample-00011			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	3	1	6
+Sample-00012			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	3	1	8
+Sample-00013			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	4	2	7
+Sample-00014			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	4	2	6
+Sample-00015			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	4	2	1
+Sample-00016			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	4	2	3
+Sample-00017			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	5	2	4
+Sample-00018			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	5	2	3
+Sample-00019			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	5	2	5
+Sample-00020			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	5	2	6
+Sample-00021			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	6	2	1
+Sample-00022			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	6	2	6
+Sample-00023			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	6	2	3
+Sample-00024			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	6	2	4
+Sample-00025			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	7	3	2
+Sample-00026			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	7	3	7
+Sample-00027			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	7	3	6
+Sample-00028			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	7	3	8
+Sample-00029			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	8	3	6
+Sample-00030			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	8	3	4
+Sample-00031			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	8	3	1
+Sample-00032			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	8	3	5
+Sample-00033			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	9	3	8
+Sample-00034			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	9	3	7
+Sample-00035			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	9	3	3
+Sample-00036			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	9	3	1
+Sample-00037			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	10	4	5
+Sample-00038			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	10	4	4
+Sample-00039			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	10	4	1
+Sample-00040			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	ORANGE	10	4	7
+Sample-00041			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	11	4	8
+Sample-00042			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	11	4	6
+Sample-00043			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	11	4	4
+Sample-00044			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	YELLOW	11	4	1
+Sample-00045			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	12	4	5
+Sample-00046			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	12	4	2
+Sample-00047			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	12	4	6
+Sample-00048			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	CONTROL	WHITE	12	4	8
+Sample-00049			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	13	5	4
+Sample-00050			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	13	5	8
+Sample-00051			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	13	5	6
+Sample-00052			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	13	5	3
+Sample-00053			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	14	5	8
+Sample-00054			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	14	5	6
+Sample-00055			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	14	5	1
+Sample-00056			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	14	5	2
+Sample-00057			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	15	5	3
+Sample-00058			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	15	5	7
+Sample-00059			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	15	5	1
+Sample-00060			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	15	5	2
+Sample-00061			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	16	6	8
+Sample-00062			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	16	6	4
+Sample-00063			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	16	6	1
+Sample-00064			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	16	6	2
+Sample-00065			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	17	6	5
+Sample-00066			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	17	6	3
+Sample-00067			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	17	6	1
+Sample-00068			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	17	6	2
+Sample-00069			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	18	6	7
+Sample-00070			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	18	6	4
+Sample-00071			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	18	6	3
+Sample-00072			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	18	6	5
+Sample-00073			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	19	7	4
+Sample-00074			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	19	7	7
+Sample-00075			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	19	7	2
+Sample-00076			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	19	7	6
+Sample-00077			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	20	7	3
+Sample-00078			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	20	7	1
+Sample-00079			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	20	7	5
+Sample-00080			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	20	7	6
+Sample-00081			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	21	7	3
+Sample-00082			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	21	7	5
+Sample-00083			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	21	7	6
+Sample-00084			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	21	7	7
+Sample-00085			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	22	8	7
+Sample-00086			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	22	8	6
+Sample-00087			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	22	8	4
+Sample-00088			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	WHITE	22	8	3
+Sample-00089			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	23	8	7
+Sample-00090			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	23	8	2
+Sample-00091			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	23	8	1
+Sample-00092			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	ORANGE	23	8	4
+Sample-00093			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	24	8	8
+Sample-00094			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	24	8	4
+Sample-00095			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	24	8	1
+Sample-00096			metagenomic	Ross 308 chicken		Dec-2018	USA:Indiana	40.497229 N  87.013652 W					10 g	broiler cecum	Cecal	WET	YELLOW	24	8	7
+MOCK			metagenomic	experimental control		Dec-2018	USA:Indiana	40.497229 N  87.013652 W						ATCC  20 strain even mix	sequencing positive control					
+WATER			metagenomic	experimental control		Dec-2018	USA:Indiana	40.497229 N  87.013652 W						PCR grade water	PCR control					
