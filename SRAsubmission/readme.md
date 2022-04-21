@@ -17,6 +17,5 @@ Then you are ready to submit everything.
 
 Example files are also included here:
 
-BioSample attributes - Metagenome.environmental.1.0.txt
-
-SRA metadata - SRA_metadata.xlsx
+1. BioSample attributes - Metagenome.environmental.1.0.txt
+2. SRA metadata - SRA_metadata.xlsx
