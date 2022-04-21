@@ -22,12 +22,10 @@ library(tidyverse)
 #These are the things that  we need from Qiime:
 #
 #sample-metadata.tsv
-#core-metrics-results/rarefied_table.qza
-#rooted-tree.qza
-#taxonomy.qza
+#pathway_abundance.qza
 ##############################################
 
-setwd("/Users/john2185/Desktop/ANSC595/2022/StudentHelp/picrust/")
+setwd("/Users/john2185/Desktop/ANSC595/2022/ANSC595-master/Tutorials/")
 list.files()
 
 if(!dir.exists("output"))
@@ -38,6 +36,7 @@ metadata<-read_q2metadata("2021-31_metadata_ver.4.0_day22.txt")
 rownames(metadata) <- metadata$SampleID
 metadata <- metadata[,-1]
 str(metadata)
+
 #################################################################
 ###Differential Abundance with DESeq2
 #################################################################
@@ -64,14 +63,13 @@ physeq <- qza_to_phyloseq(
 )
 
 physeq_otu_table <- data.frame(otu_table(physeq), check.names = FALSE)
-
+min(physeq_otu_table)
 OTU.clean2 <- physeq_otu_table + 1
 
 
 #Now make the phyloseq object:
 
 OTU.physeq = otu_table(as.matrix(OTU.clean2), taxa_are_rows=TRUE)
-#tax.physeq = tax_table(as.matrix(tax.clean))
 meta.physeq = sample_data(metadata)
 
 
@@ -100,43 +98,19 @@ diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
 #  3. the name of the denominator level for the fold change (simplest case)
 
 #Normal CP vs. High-indigestible CP
-alpha = 0.05
-my_contrast = c("diet", "Normal CP", "High-indigestible CP") 
+alpha <- 0.05
+my_contrast <- c("diet", "Normal CP", "High-indigestible CP") 
+my_contrast <- c("diet", "Normal CP", "High CP") 
+my_contrast <- c("diet", "High CP", "High-indigestible CP") 
 
-res = results(diagdds, contrast = my_contrast, cooksCutoff = FALSE)
+res <- results(diagdds, contrast = my_contrast, cooksCutoff = FALSE)
 
 sigtab <- res[which(res$padj < alpha), ]
 sigtab <- as(sigtab, "data.frame")
-#sigtab = cbind(as(sigtab, "data.frame"), as(tax_table(physeq_deseq)[rownames(sigtab), ], "matrix"))
-#head(sigtab)
 
-
-###Volcano Plot
-
-with(res, plot(log2FoldChange, -log10(padj), pch=20, main="Volcano plot", xlim=c(-15,15)))
-
-# Add colored points: blue if padj<0.01, red if log2FC>1 and padj<0.05)
-with(subset(res, padj<.01 ), points(log2FoldChange, -log10(pvalue), pch=20, col="blue"))
-with(subset(res, padj<.01 & abs(log2FoldChange)>2), points(log2FoldChange, -log10(pvalue), pch=20, col="red"))
-
-
-#Let's look at the OTUs that were significantly different between the two treatment groups. The following makes a nice ggplot2 summary of the results.
-
-
-theme_set(theme_bw())
-scale_fill_discrete <- function(palname = "Set1", ...) {
-  scale_fill_brewer(palette = palname, ...)
-}
-# Phylum order
-#x = tapply(sigtab$log2FoldChange, sigtab$Phylum, function(x) max(x))
-#x = sort(x, TRUE)
-#sigtab$Phylum = factor(as.character(sigtab$Phylum), levels=names(x))
-# Genus order
 x = sigtab$log2FoldChange
 names(x) <- row.names(sigtab)
-
 x = sort(x, TRUE)
-
 sigtab$pathway <- row.names(sigtab)
 sigtab$pathway = factor(as.character(sigtab$pathway), levels=names(x))
 str(sigtab$pathway)
@@ -144,14 +118,11 @@ str(sigtab$pathway)
 DESeq_fig = ggplot(sigtab, aes(x = pathway, y = log2FoldChange)) + 
   geom_point(size=3) + 
   ylab(paste0("(", my_contrast[2], "/", my_contrast[3], ")\n", "log2FoldChange")) +
-  #scale_color_manual(values = my_colors[c(4,6,8,10,12,14,16,18,20)]) +
-  #ylim(0,8) +
   geom_hline(yintercept = 0) +
-  geom_text(x=9, y=1.5, label=my_contrast[2]) +
-  geom_text(x=3, y=-.75, label=my_contrast[3]) +
+  geom_text(x=40, y=1.5, label=my_contrast[2]) +
+  geom_text(x=10, y=-.75, label=my_contrast[3]) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust=0.5))+
   theme(axis.text.x = element_text(color = "black", size = 10),
         axis.text.y =element_text(color = "black", size = 12)) 
 
-ggsave(paste0("output/DESeq2-", my_contrast[2], "-", my_contrast[3], ".png"), DESeq_fig, height = 4.5, width = 5)
-
+ggsave(paste0("output/DESeq2-", my_contrast[2], "-", my_contrast[3], ".png"), DESeq_fig, height = 4.5, width = 8)
