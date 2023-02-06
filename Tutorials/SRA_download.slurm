@@ -28,7 +28,7 @@ module load sra-toolkit
 
 # downlaod sra files to raw directory
 echo "download raw :)"
-prefetch -O raw --option-file SraAccList.txt
+prefetch -O raw --option-file SraAccList.csv
 
 
 echo "copy raw seq to seq directory"
