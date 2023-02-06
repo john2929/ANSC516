@@ -1,5 +1,5 @@
-# ANSC595
-class materials for ANSC595
+# ANSC516
+class materials for ANSC516
 
 Welcome to Molecular Microbiome Analysis.
 
