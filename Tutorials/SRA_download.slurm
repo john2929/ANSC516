@@ -4,10 +4,14 @@
 #SBATCH --tasks-per-node=12        ##number of requested CPUs
 #SBATCH --time=2:00:00             ##time requested
 #SBATCH --job-name SRA             ##name of job
-#SBATCH -A john2185                ##name of the queue you are using. Could be scholar or microbiome if you are on snyder
+#SBATCH -A microbiome                ##name of the queue you are using. Could be scholar or microbiome if you are on snyder
 
 #########################################################################
+echo "start time"
+date +"%d %B %Y %H:%M:%S"
+
 #step 1, create a seq file for the sequences to be saved to
+pwd
 mkdir seq
 mkdir raw
 ls
