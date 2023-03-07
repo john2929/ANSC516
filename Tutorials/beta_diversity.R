@@ -33,84 +33,9 @@ library(vegan)
 # scp john2185@bell.rcac.purdue.edu:/depot/microbiome/data/2021_ANSC595/john2185/qiime/moving_pictures_pipeline/core-metrics-results/* core-metrics-results/.
 ##############################################
 
-##Pairwiese adonis function
-#we can also performe a pairwise comparison with the function 
-# Pairwise Adonis funtion by edro Martinez Arbizu & Sylvain Monteux
-#https://github.com/pmartinezarbizu/pairwiseAdonis/blob/master/pairwiseAdonis/R/pairwise.adonis.R
 
-pairwise.adonis2 <- function(x, data, strata = NULL, nperm=999, ... ) {
-  
-  #describe parent call function 
-  ststri <- ifelse(is.null(strata),'Null',strata)
-  fostri <- as.character(x)
-  #list to store results
-  
-  #copy model formula
-  x1 <- x
-  # extract left hand side of formula
-  lhs <- x1[[2]]
-  # extract factors on right hand side of formula 
-  rhs <- x1[[3]]
-  # create model.frame matrix  
-  x1[[2]] <- NULL   
-  rhs.frame <- model.frame(x1, data, drop.unused.levels = TRUE) 
-  
-  # create unique pairwise combination of factors 
-  co <- combn(unique(as.character(rhs.frame[,1])),2)
-  
-  # create names vector   
-  nameres <- c('parent_call')
-  for (elem in 1:ncol(co)){
-    nameres <- c(nameres,paste(co[1,elem],co[2,elem],sep='_vs_'))
-  }
-  #create results list  
-  res <- vector(mode="list", length=length(nameres))
-  names(res) <- nameres
-  
-  #add parent call to res 
-  res['parent_call'] <- list(paste(fostri[2],fostri[1],fostri[3],', strata =',ststri, ', permutations',nperm ))
-  
-  
-  #start iteration trough pairwise combination of factors  
-  for(elem in 1:ncol(co)){
-    
-    #reduce model elements  
-    if(inherits(eval(lhs),'dist')){	
-      xred <- as.dist(as.matrix(eval(lhs))[rhs.frame[,1] %in% c(co[1,elem],co[2,elem]),
-                                           rhs.frame[,1] %in% c(co[1,elem],co[2,elem])])
-    }else{
-      xred <- eval(lhs)[rhs.frame[,1] %in% c(co[1,elem],co[2,elem]),]
-    }
-    
-    mdat1 <-  data[rhs.frame[,1] %in% c(co[1,elem],co[2,elem]),] 
-    
-    # redefine formula
-    if(length(rhs) == 1){
-      xnew <- as.formula(paste('xred',as.character(rhs),sep='~'))	
-    }else{
-      xnew <- as.formula(paste('xred' , 
-                               paste(rhs[-1],collapse= as.character(rhs[1])),
-                               sep='~'))}
-    
-    #pass new formula to adonis
-    if(is.null(strata)){
-      ad <- adonis2(xnew,data=mdat1, ... )
-    }else{
-      perm <- how(nperm = nperm)
-      setBlocks(perm) <- with(mdat1, mdat1[,ststri])
-      ad <- adonis2(xnew,data=mdat1,permutations = perm, ... )}
-    
-    res[nameres[elem+1]] <- list(ad[1:5])
-  }
-  #names(res) <- names  
-  class(res) <- c("pwadstrata", "list")
-  return(res)
-} 
-
-
-
-
-setwd("~/Desktop/ANSC516-repo/moving_pictures/")
+###Set your working directory
+#setwd("path/to/ANSC516/ANSC-repo/ANSC516/data/moving-pictures")
 
 list.files()
 
@@ -223,6 +148,82 @@ rownames(bc_dm) == metadata_sub$SampleID ## all these values need to be "TRUE"
 PERMANOVA_out <- adonis2(bc_dm ~ body.site, data = metadata_sub)
 
 write.table(PERMANOVA_out,"output/Body.site_Adonis_overall.csv",sep=",", row.names = TRUE) 
+
+######################################################################################
+##Pairwiese adonis function
+#we can also performe a pairwise comparison with the function 
+#Pairwise Adonis funtion by edro Martinez Arbizu & Sylvain Monteux
+#https://github.com/pmartinezarbizu/pairwiseAdonis/blob/master/pairwiseAdonis/R/pairwise.adonis.R
+#######################################################################################
+
+pairwise.adonis2 <- function(x, data, strata = NULL, nperm=999, ... ) {
+  
+  #describe parent call function 
+  ststri <- ifelse(is.null(strata),'Null',strata)
+  fostri <- as.character(x)
+  #list to store results
+  
+  #copy model formula
+  x1 <- x
+  # extract left hand side of formula
+  lhs <- x1[[2]]
+  # extract factors on right hand side of formula 
+  rhs <- x1[[3]]
+  # create model.frame matrix  
+  x1[[2]] <- NULL   
+  rhs.frame <- model.frame(x1, data, drop.unused.levels = TRUE) 
+  
+  # create unique pairwise combination of factors 
+  co <- combn(unique(as.character(rhs.frame[,1])),2)
+  
+  # create names vector   
+  nameres <- c('parent_call')
+  for (elem in 1:ncol(co)){
+    nameres <- c(nameres,paste(co[1,elem],co[2,elem],sep='_vs_'))
+  }
+  #create results list  
+  res <- vector(mode="list", length=length(nameres))
+  names(res) <- nameres
+  
+  #add parent call to res 
+  res['parent_call'] <- list(paste(fostri[2],fostri[1],fostri[3],', strata =',ststri, ', permutations',nperm ))
+  
+  
+  #start iteration trough pairwise combination of factors  
+  for(elem in 1:ncol(co)){
+    
+    #reduce model elements  
+    if(inherits(eval(lhs),'dist')){	
+      xred <- as.dist(as.matrix(eval(lhs))[rhs.frame[,1] %in% c(co[1,elem],co[2,elem]),
+                                           rhs.frame[,1] %in% c(co[1,elem],co[2,elem])])
+    }else{
+      xred <- eval(lhs)[rhs.frame[,1] %in% c(co[1,elem],co[2,elem]),]
+    }
+    
+    mdat1 <-  data[rhs.frame[,1] %in% c(co[1,elem],co[2,elem]),] 
+    
+    # redefine formula
+    if(length(rhs) == 1){
+      xnew <- as.formula(paste('xred',as.character(rhs),sep='~'))	
+    }else{
+      xnew <- as.formula(paste('xred' , 
+                               paste(rhs[-1],collapse= as.character(rhs[1])),
+                               sep='~'))}
+    
+    #pass new formula to adonis
+    if(is.null(strata)){
+      ad <- adonis2(xnew,data=mdat1, ... )
+    }else{
+      perm <- how(nperm = nperm)
+      setBlocks(perm) <- with(mdat1, mdat1[,ststri])
+      ad <- adonis2(xnew,data=mdat1,permutations = perm, ... )}
+    
+    res[nameres[elem+1]] <- list(ad[1:5])
+  }
+  #names(res) <- names  
+  class(res) <- c("pwadstrata", "list")
+  return(res)
+} 
 
 body.site_Pair <- pairwise.adonis2(bc_dm ~ body.site, data = metadata_sub)
 write.table(body.site_Pair,"output/Body.site_Adonis_pairwise.csv",sep=",", row.names = TRUE) 
