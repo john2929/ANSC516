@@ -110,7 +110,7 @@ pairwise.adonis2 <- function(x, data, strata = NULL, nperm=999, ... ) {
 
 
 
-setwd("~/Desktop/ANSC595/2022/moving_pictures/from_bell/")
+setwd("~/Desktop/ANSC516-repo/moving_pictures/")
 
 list.files()
 
