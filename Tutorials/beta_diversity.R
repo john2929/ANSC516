@@ -1,12 +1,16 @@
 
 #Load the packages
-#install.packages("remotes")
-#remotes::install_github("jbisanz/qiime2R")
+install.packages("tidyverse")
+install.packages("vegan")
+install.packages("devtools")
+library(devtools)
+devtools::install_github("jbisanz/qiime2R")
 
-library(qiime2R)
 
 library(tidyverse)
 library(vegan)
+library(qiime2R)
+
 
 ##############################################
 #Set UP
@@ -42,9 +46,15 @@ list.files()
 if(!dir.exists("output"))
   dir.create("output")
 
+#How to load a file into R
+metadata2 <- read.delim("sample-metadata.tsv", sep = "\t", header = T, quote = "", stringsAsFactors = F)
+metadata2[1,]
+metadata2[,1]
+# When subsetting, the first number is the row and after the comma is the column
+metadata2 <- metadata2[-1,]
+
+#Now the qiime2R method
 metadata<-read_q2metadata("sample-metadata.tsv")
-#metadata2 <- read.delim("sample-metadata.tsv", sep = "\t", header = T, quote = "", stringsAsFactors = F)
-#metadata2 <- metadata2[-1,]
 str(metadata)
 levels(metadata$`body-site`)
 colnames(metadata)[3] <- "body.site"
@@ -66,7 +76,7 @@ bc_meta <- bc_PCoA$data$Vectors %>%
   select(SampleID, PC1, PC2, PC3) %>%
   inner_join(metadata, by = c("SampleID" = "SampleID"))
 
-#Now we are going to make an ordination plot
+# Now we are going to make an ordination plot
 ggplot(bc_meta, aes(x=PC1, y=PC2, color=body.site)) +
   geom_point() + #alpha controls transparency and helps when points are overlapping
   theme_q2r() +
@@ -74,6 +84,7 @@ ggplot(bc_meta, aes(x=PC1, y=PC2, color=body.site)) +
   ylab("PC2 (22.28%)") +
   scale_color_manual(values=c("Blue", "Black", "Green", "Gray"), name = "body-site")
 
+# Now we are going to make our code a little more re-usable
 my_column <- "body.site"
 #my_column <- "DietTreatment"
 
@@ -106,10 +117,10 @@ ggplot(bc_meta, aes(x=PC1, y=PC2, color=get(my_column))) +
   #stat_ellipse(level = 0.95, type = "t") +
   xlab(paste0("PC1 (", round(100*bc_PCoA$data$ProportionExplained[1], digits = 2), "%)")) +
   ylab(paste0("PC2 (", round(100*bc_PCoA$data$ProportionExplained[2], digits = 2), "%)")) 
-#scale_color_manual(values=corn_colors, name = my_column)
+  #scale_color_manual(values=body_colors, name = my_column)
 ggsave(paste0("output/BC-ellipse_", my_column,"-subject.pdf"), height=3, width=4.5, device="pdf") # save a PDF 3 inches by 4 inches
 
-##SAME thing but with weighted UniFrac
+## SAME thing but with weighted UniFrac
 
 Wuni_PCoA<-read_qza("core-metrics-results/weighted_unifrac_pcoa_results.qza")
 
@@ -150,10 +161,10 @@ PERMANOVA_out <- adonis2(bc_dm ~ body.site, data = metadata_sub)
 write.table(PERMANOVA_out,"output/Body.site_Adonis_overall.csv",sep=",", row.names = TRUE) 
 
 ######################################################################################
-##Pairwiese adonis function
-#we can also performe a pairwise comparison with the function 
-#Pairwise Adonis funtion by edro Martinez Arbizu & Sylvain Monteux
-#https://github.com/pmartinezarbizu/pairwiseAdonis/blob/master/pairwiseAdonis/R/pairwise.adonis.R
+##  Pairwise adonis function
+##  we can also performe a pairwise comparison with the function 
+##  Pairwise Adonis funtion by edro Martinez Arbizu & Sylvain Monteux
+##  https://github.com/pmartinezarbizu/pairwiseAdonis/blob/master/pairwiseAdonis/R/pairwise.adonis.R
 #######################################################################################
 
 pairwise.adonis2 <- function(x, data, strata = NULL, nperm=999, ... ) {
