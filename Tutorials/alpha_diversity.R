@@ -20,7 +20,7 @@
 #So where `~/Desktop/ANSC595/moving-pictures` is in the code below, you 
 #need to enter the path to where you saved the tutorial or your data.
 
-setwd('~/Desktop/ANSC595/2022/moving_pictures/from_bell/')
+setwd("~/Desktop/ANSC516/2023/ANSC516-repo/ANSC516/data/moving-pictures")
 list.files()
 
 # Modified from the original online version available at 
@@ -150,7 +150,8 @@ ggqqplot(meta$faith_pd, title = "Faith PD")
 ggqqplot(meta$pielou_e, title = "Evenness")
 ggqqplot(meta$observed_features, title = "Observed Features")
 
-
+install.packages("ggpubr")
+library("ggpubr")
 
 # To test for normalcy statistically, we can run the Shapiro-Wilk 
 # test of normality.
@@ -216,12 +217,12 @@ levels(meta$body.site.ord)
 #Plot
 boxplot(pielou_evenness ~ body.site.ord, data=meta, ylab="Peilou evenness")
 
-evenness <- ggplot(meta, aes(body.site.ord, pielou_evenness)) + 
+evenness_boxplot <- ggplot(meta, aes(body.site.ord, pielou_evenness)) + 
   geom_boxplot() + 
   #ylim(c(0.5,1)) +
   theme_q2r() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
-ggsave("output/evenness.png", evenness, height = 3, width = 3)
+ggsave("output/evenness_boxplot.png", evenness, height = 3, width = 3)
 
 # Now, the above graph is kind of not correct. Our test and our graphic do not exactly match. ANOVA and Tukey are tests based on the mean, but the boxplot plots the median. Its not wrong, its just not the best method. Unfortunately plotting the average and standard deviation is a little complicated.
 
@@ -268,14 +269,14 @@ boxplot(faith_pd ~ body.site.ord, data=meta, ylab="Faith phylogenetic diversity"
 
 # or with ggplot2
 
-faith_pd <- ggplot(meta, aes(body.site.ord, faith_pd)) + 
+faith_pd_boxplot <- ggplot(meta, aes(body.site.ord, faith_pd)) + 
   geom_boxplot(aes(color = body.site.ord)) + 
   #ylim(c(0.5,1)) +
   theme_q2r() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
   theme(legend.title = element_blank()) +
   labs(y="Faith Phylogenetic Diversity", x = "") 
-ggsave("output/pd.png", faith_pd, height = 3, width = 3)
+ggsave("output/pd.png", faith_pd_boxplot, height = 3, width = 3)
 
 ##Continuous variables
 # For continuous variables, we use general linear models, specifying 
