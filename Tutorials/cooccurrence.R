@@ -180,8 +180,8 @@ strong_results_taxa <- merge(strong_results_taxa, tax.clean, by.x = "ASVstring.y
 
 write.csv(strong_results_taxa, "output/moving-pictures-strong-results-taxa.csv", row.names = F)
 write.csv(subset(strong_results_taxa, trt=="gut"), "output/moving-pictures-strong-results-taxa-gut.csv", row.names = F)
-write.csv(subset(strong_results_taxa, trt=="right hand"), "output/moving-pictures-strong-results-taxa-right.csv", row.names = F)
-write.csv(subset(strong_results_taxa, trt=="left hand"), "output/moving-pictures-strong-results-taxa-left.csv", row.names = F)
+write.csv(subset(strong_results_taxa, trt=="right palm"), "output/moving-pictures-strong-results-taxa-right.csv", row.names = F)
+write.csv(subset(strong_results_taxa, trt=="left palm"), "output/moving-pictures-strong-results-taxa-left.csv", row.names = F)
 write.csv(subset(strong_results_taxa, trt=="tongue"), "output/moving-pictures-strong-results-taxa-tongue.csv", row.names = F)
 
 ############################################################
