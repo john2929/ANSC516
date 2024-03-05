@@ -1,12 +1,12 @@
 
-#Load the packages
+#Install the packages, IF YOU NEED TO :)
 install.packages("tidyverse")
 install.packages("vegan")
 install.packages("devtools")
 library(devtools)
 devtools::install_github("jbisanz/qiime2R")
 
-
+#Load the packages. Everyone needs to do this.
 library(tidyverse)
 library(vegan)
 library(qiime2R)
@@ -28,18 +28,12 @@ library(qiime2R)
 #core-metrics-results/observed_otus_vector.qza
 #core-metrics-results/shannon_vector.qza
 #
-# To get these files you need to scp them from the cluster:
-#
-# first on  your laptop cd to the directory where you want to save them.
-# Then use this code for our example dataset today:
-# mkdir core-metrics-results/
-# scp john2185@bell.rcac.purdue.edu:/depot/microbiome/data/2021_ANSC595/john2185/qiime/moving_pictures_pipeline/* .
-# scp john2185@bell.rcac.purdue.edu:/depot/microbiome/data/2021_ANSC595/john2185/qiime/moving_pictures_pipeline/core-metrics-results/* core-metrics-results/.
+# These files are already in the ANSC516-repo
 ##############################################
 
-
-###Set your working directory
-#setwd("path/to/ANSC516/ANSC-repo/ANSC516/data/moving-pictures")
+getwd()
+###Set your working directory path/to/ANSC516/ANSC-repo/ANSC516/data/moving-pictures
+#setwd("path/to/moving-pictures")
 
 list.files()
 
