@@ -9,7 +9,7 @@ library(qiime2R)
 #library(fdrtool)
 # this is the demo data, take a look at it. YOU MUST PROPERLY DIRECT THE FILE PATH
 
-setwd(dir = "~/Desktop/ANSC595/2022/moving_pictures/from_bell/")
+setwd(dir = "~/Desktop/ANSC516/2024/ANSC516-repo/ANSC516/data/moving-pictures/")
 
 ASVs <- read_qza("table.qza")
 ASV_table <- as.data.frame(ASVs$data)
@@ -49,7 +49,7 @@ n2 <- 4
 n3 <- 4
 n4 <- 4
 
-num_metadata_columns <- 9
+num_metadata_columns <- ncol(metadata)
 
 q_cutoff <- 0.05
 
@@ -110,7 +110,16 @@ for(i in 1:length(treatments)){
   print(paste("finished ",treatments[i],sep=""))
 }
 
-strong_results<-subset(final_results, rho >= 0.9)
+# In the following line, you don't have to use use rho >= 0.9. 
+# If your final_results table has less than 500 rows, 
+# then I consider that not too many and there's no need to filter your results.
+# If you don't want to filter, just use 
+#strong_results <- final_results
+
+# If you have too many correlations and need to simplify, 
+# consider running the following line, and choose an appropriate cutoff for rho.
+# This line will keep both positive and negative correlations. abs() means absolute value
+#strong_results<-subset(final_results, abs(rho) >= 0.9)
 
 
 ###############################################################
