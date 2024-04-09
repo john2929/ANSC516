@@ -6,19 +6,19 @@
 # https://bioconductor.org/packages/release/bioc/html/phyloseq.html
 
 # to install phyloseq:
-# if (!requireNamespace("BiocManager", quietly = TRUE))
-# install.packages("BiocManager")
-#BiocManager::install("phyloseq")
+ if (!requireNamespace("BiocManager", quietly = TRUE))
+ install.packages("BiocManager")
+BiocManager::install("phyloseq")
 
 #to install DESeq2
-#if (!requireNamespace("BiocManager", quietly = TRUE))
-#  install.packages("BiocManager")
-#BiocManager::install("DESeq2")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+  install.packages("BiocManager")
+BiocManager::install("DESeq2")
 
 
 library(qiime2R)
 library(phyloseq)
-library(zoo)
+#library(zoo)
 library(tidyverse)
 library(DESeq2)
 
@@ -32,17 +32,24 @@ library(DESeq2)
 #rooted-tree.qza
 #taxonomy.qza
 ##############################################
-
-setwd('../moving-pictures/')
+getwd
+setwd('../data/moving-pictures/')
 list.files()
 
 if(!dir.exists("output/taxa"))
   dir.create("output/taxa")
 
-##Qiime2r method of reading in the taxonomy files
+##Qiime2r method of reading in the taxonomy, metadata and table files individually. 
+##Run these lines to troubleshoot if you have trouble on line 55.
 #taxonomy<-read_qza("taxonomy.qza")
 #head(taxonomy$data)
-#tax.clean<-parse_taxonomy(taxonomy$data)
+#taxonomy_table<-parse_taxonomy(taxonomy$data)
+
+#metadata<-read_q2metadata("sample-metadata.tsv")
+#str(metadata)
+
+#rare_table <- read_qza("core-metrics-results/rarefied_table.qza")
+#feature_table <- rare_table$data
 
 ##Qiime2R method of creating a phyloseq object
 physeq <- qza_to_phyloseq(
@@ -126,11 +133,12 @@ my_colors <- c(
 #If you want different taxonomic level, find and replace the taxonomic level listed here
 my_level <- c("Phylum", "Family", "Genus")
 my_column <- "body.site"  #this is the metadata column that we will use in the taxa barplot
+my_column_ordered <- c("left palm", "right palm", "gut", "tongue")
 
 rm(taxa.summary)
 
-abund_filter <- 0.05  # Our abundance threshold
-#ml ="Genus"
+abund_filter <- 0.02  # Our abundance threshold
+#ml ="Family"
 
 for(ml in my_level){
   print(ml)
@@ -148,28 +156,41 @@ for(ml in my_level){
   physeq.taxa.max <- taxa.summary %>% 
     group_by(get(ml)) %>%
     summarise(overall.max=max(Abundance.average))
-  
+
   physeq.taxa.max <- as.data.frame(physeq.taxa.max)
   colnames(physeq.taxa.max)[1] <- ml
   
+  physeq.taxa.mean <- taxa.summary %>% 
+    group_by(get(ml)) %>%
+    summarise(overall.mean=mean(Abundance.average))
+  
+  physeq.taxa.mean <- as.data.frame(physeq.taxa.mean)
+  colnames(physeq.taxa.mean)[1] <- ml
+  
   # merging the phyla means with the metadata #
   physeq_meta <- merge(taxa.summary, physeq.taxa.max)
-  
+  physeq_meta <- merge (physeq_meta, physeq.taxa.mean)
   
   physeq_meta_filtered <- filter(physeq_meta, overall.max>abund_filter)
   #str(physeq_meta_filtered)
   
-  physeq_meta_filtered$body.site.ord = factor(physeq_meta_filtered$body.site, c("left palm", "right palm", "gut", "tongue"))
+  physeq_meta_filtered$my_column_ordered = factor(physeq_meta_filtered[[my_column]], my_column_ordered)
+ 
+  physeq_meta_filtered[[ml]] <- factor(physeq_meta_filtered[[ml]])
+  y = tapply(physeq_meta_filtered$overall.mean, physeq_meta_filtered[[ml]], function(y) max(y))
+  y = sort(y, TRUE)
+  physeq_meta_filtered[[ml]] = factor(as.character(physeq_meta_filtered[[ml]]), levels=names(y))
+  levels(physeq_meta_filtered[[ml]])
   
   # Plot 
-  ggplot(physeq_meta_filtered, aes(x = get(my_column), y = Abundance.average, fill = get(ml))) + 
-    #facet_grid(.~LitterTreatment) +
-    geom_bar(stat = "identity") +
+  ggplot(physeq_meta_filtered, aes(x = my_column_ordered, y = Abundance.average, fill = get(ml))) + 
+    #facet_grid(.~.) +
+    geom_bar(stat = "identity", position = position_stack(reverse = TRUE)) +
     scale_fill_manual(values = my_colors) +
     # Remove x axis title
     #theme(axis.title.x = element_blank()) + 
     ylim(c(0,1)) +
-    guides(fill = guide_legend(reverse = F, keywidth = .5, keyheight = .5, ncol = 1)) +
+    guides(fill = guide_legend(reverse = TRUE, keywidth = .5, keyheight = .5, ncol = 1)) +
     theme(legend.text=element_text(size=8)) +
     #theme(legend.position="bottom") +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
@@ -179,6 +200,7 @@ for(ml in my_level){
     ggtitle(paste0(ml, " (>", abund_filter * 100,"%) in at least 1 sample")) 
   ggsave(paste0("output/taxa/", ml, "BarPlot_", my_column, ".png"), height = 5, width = 4)
 }
+
 
 #################################################################
 ###Differential Abundance with DESeq2
@@ -231,7 +253,7 @@ diagdds = DESeq(diagdds, test="Wald", fitType="parametric")
 
 alpha = 0.05
 
-
+run_deseq2("body.site", "gut", "left palm")
 run_deseq2 <- function(my_factor, x, y){
   
   my_contrast <- c(my_factor, x, y)
