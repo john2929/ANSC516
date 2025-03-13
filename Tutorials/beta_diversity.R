@@ -32,7 +32,7 @@ library(qiime2R)
 ##############################################
 
 getwd()
-###Set your working directory path/to/ANSC516/ANSC-repo/ANSC516/data/moving-pictures
+###Set your working directory path/to/ANSC516/ANSC-repo/data/moving-pictures
 #setwd("path/to/moving-pictures")
 
 list.files()
@@ -79,6 +79,7 @@ ggplot(bc_meta, aes(x=PC1, y=PC2, color=body.site)) +
   scale_color_manual(values=c("Blue", "Black", "Green", "Gray"), name = "body-site")
 
 # Now we are going to make our code a little more re-usable
+body_colors <- c("Black", "Blue", "Green", "Gray")
 my_column <- "body.site"
 #my_column <- "DietTreatment"
 
@@ -114,6 +115,7 @@ ggplot(bc_meta, aes(x=PC1, y=PC2, color=get(my_column))) +
   #scale_color_manual(values=body_colors, name = my_column)
 ggsave(paste0("output/BC-ellipse_", my_column,"-subject.pdf"), height=3, width=4.5, device="pdf") # save a PDF 3 inches by 4 inches
 
+##################################################################################
 ## SAME thing but with weighted UniFrac
 
 Wuni_PCoA<-read_qza("core-metrics-results/weighted_unifrac_pcoa_results.qza")
@@ -143,6 +145,10 @@ ggplot(Wuni_meta, aes(x=PC1, y=PC2, color=get(my_column))) +
   ylab(paste0("PC2 (", round(100*Wuni_PCoA$data$ProportionExplained[2], digits = 2), "%)")) +
   scale_color_manual(values=body_colors, name = "Body Site")
 ggsave(paste0("output/Wuni-ellipse_", my_column,"-subject.pdf"), height=3, width=4.5, device="pdf") # save a PDF 3 inches by 4 inches
+
+##################################################################################
+#Run some PERMANOVAs
+#
 
 bc_dist_mat<-read_qza("core-metrics-results/bray_curtis_distance_matrix.qza")
 bc_dm <- as.matrix(bc_dist_mat$data) 
