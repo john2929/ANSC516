@@ -9,7 +9,7 @@ library(qiime2R)
 #library(fdrtool)
 # this is the demo data, take a look at it. YOU MUST PROPERLY DIRECT THE FILE PATH
 
-setwd(dir = "~/Desktop/ANSC516/2024/ANSC516-repo/ANSC516/data/moving-pictures/")
+setwd(dir = "~/Desktop/ANSC516/2024/ANSC516-repo/data/moving-pictures/")
 
 ASVs <- read_qza("table.qza")
 ASV_table <- as.data.frame(ASVs$data)
