@@ -12,7 +12,7 @@
 #So where `~/Desktop/ANSC595/moving-pictures` is in the code below, you 
 #need to enter the path to where you saved the tutorial or your data.
 
-setwd("~/Desktop/ANSC516/2023/ANSC516-repo/ANSC516/data/moving-pictures")
+setwd("~/Desktop/ANSC516/2023/ANSC516-repo/data/moving-pictures")
 list.files()
 
 # Modified from the original online version available at 
