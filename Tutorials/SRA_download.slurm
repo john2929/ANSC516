@@ -24,15 +24,15 @@ pwd
 
 #step 2, Load Modules
 
-echo "loading bioinfo"
-module load bioinfo
+echo "loading biocontainers"
+module load biocontainers
 
-echo "loading sra-toolkit"
-module load sra-toolkit
+echo "loading sra-tools"
+module load sra-tools
 
 # downlaod sra files to raw directory
 echo "download raw :)"
-prefetch -O raw --option-file SraAccList.csv
+prefetch -O raw --option-file SRR_Acc_List.txt
 
 
 echo "copy raw seq to seq directory"
