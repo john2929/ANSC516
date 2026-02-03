@@ -1,6 +1,7 @@
 #!/bin/sh -l
 
 #SBATCH --nodes=1                  ##number of requested nodes (a node is a group of CPUs)
+#SBATCH -p cpu
 #SBATCH --tasks-per-node=12        ##number of requested CPUs
 #SBATCH --time=2:00:00             ##time requested
 #SBATCH --job-name SRA             ##name of job
