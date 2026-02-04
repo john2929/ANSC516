@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/bash
 
 #SBATCH --nodes=1                  ##number of requested nodes (a node is a group of CPUs)
 #SBATCH -p cpu
@@ -17,7 +17,7 @@ mkdir seq
 mkdir raw
 ls
 
-# SRR_Acc_List.txt --> SRA access numbers of each sequence
+# SRR_Acc_List.txt --> SRA accession numbers of each sequence
 # raw --> an empty directory to containing raw sra files
 # seq --> an empty directory to containing fastq files (translated from sra)
 
